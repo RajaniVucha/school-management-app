@@ -1,13 +1,14 @@
 // controllers/studentController.js
 
 // Import the Student model 
-const Student = require('../models/Student');
+const Student = require('../models/studentSchema');
 
 // Create a function to get a list of all students
 exports.getStudents = async (req, res) => {
   try {
     const students = await Student.find();
     res.json(students);
+    console.log(students)
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

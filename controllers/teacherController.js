@@ -1,10 +1,10 @@
 // controllers/teacherController.js
 
 // Import the teacher model 
-const teacher = require('../models/teacher');
+const teacher = require('../models/teacherSchema');
 
 // Create a function to get a list of all teachers
-exports.getteachers = async (req, res) => {
+exports.getTeachers = async (req, res) => {
   try {
     const teachers = await teacher.find();
     res.json(teachers);
@@ -14,7 +14,7 @@ exports.getteachers = async (req, res) => {
 };
 
 // Create a function to create a new teacher
-exports.createteacher = async (req, res) => {
+exports.createTeacher = async (req, res) => {
   try {
     const newteacher = new teacher(req.body);
     await newteacher.save();
