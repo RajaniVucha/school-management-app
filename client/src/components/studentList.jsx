@@ -1,6 +1,6 @@
 import React from 'react'
 
-const studentList = () => {
+const StudentList = () => {
   return (
     <div>
       Student List
@@ -8,4 +8,4 @@ const studentList = () => {
   )
 }
 
-export default studentList
+export default StudentList
