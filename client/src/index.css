@@ -9,14 +9,13 @@
 body {
   font-family: "Poppins", sans-serif;
   background-color: #ffffff;
-  color: #ca5151;
+  color: #213555;
   line-height: 1.6;
 }
 
 ul {
   list-style: none;
 }
-
 
 header {
   height: 70px;
@@ -28,8 +27,117 @@ header {
 }
 
 .container {
-  position:absolute;
-  max-width: 768px;
+  position: absolute;
+  width: 100%;
   margin: auto;
   padding: 100px;
+  align-items: center;
+  align-content: center;
+}
+.title {
+  font-size: 38px;
+  color: #365381;
+  text-align: center;
+  padding: 5px;
+}
+.student-container {
+  width: 80%;
+  height: auto;
+  padding: 20px;
+  margin: auto;
+  box-sizing: border-box;
+  align-items: center;
+  align-content: center;
+}
+.button {
+  background-color: #365381;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.button-rgt-position {
+  padding-left: 900px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px auto;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+.student-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+}
+.student-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.student-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.student-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.student-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #365381;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.student-form button:hover {
+  background-color: #0056b3;
+}
+
+.select-box {
+  width: auto;
+  display: flex;
+}
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 200px;
+}
+
+/* Style the select box when it's focused */
+select:focus {
+  outline: none;
+  border-color: #007bff; /* Change to your desired focus color */
 }

@@ -19,9 +19,8 @@ const Header = () => {
   window.addEventListener("scroll", changeColor);
   return (
     <div className={color ? "header header-bg" : "header"}>
-      
-        <h1>School Management App</h1>
-    
+      <h1>School Management App</h1>
+
       <ul className={click ? "nav-menu active" : "nav-menu"}>
         <li>
           <Link to="/">Dashboard</Link>
