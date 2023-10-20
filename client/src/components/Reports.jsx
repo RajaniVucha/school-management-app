@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect } from "react";
+import SchoolContext from "./SchoolContext";
+import ViewMarks from "./ViewMarks";
+import { useNavigate } from "react-router-dom";
 
 const Reports = () => {
-  const [studentData, setStudentData] = useState([]);
-  const [option, setOption] = useState();
-  const handleSelect = (e) => {
-    setOption(e.target.value);
-  };
-  console.log(studentData);
-  console.log(option);
+  const { grade, getStudentsByClass, studentData, handleSelect, isLoggedIn } =
+    useContext(SchoolContext);
+  const { error } = useContext(SchoolContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/reports");
+    else navigate("/");
+    //get students by grade
+    getStudentsByClass(grade);
+  }, [navigate, isLoggedIn, getStudentsByClass, grade]);
+
   return (
     <div>
       <div>
@@ -34,36 +42,33 @@ const Reports = () => {
         </form>
       </div>{" "}
       <div className="title">
-        <h5>Students Reports</h5>
+        <h5>Students Reports </h5>
       </div>
+      <div className="error-msg">{error}</div>
       <div className="student-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Student ID</th>
-              <th>Name</th>
-              <th>Add Marks</th>
-              <th>View Report</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>001</td>
-              <td>John Doe</td>
-              <td>Add Marks</td>
-              <td>View Report</td>
-              <td>Delete</td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td>Jane Smith</td>
-              <td>Add Marks</td>
-              <td>View Report</td>
-              <td>Delete</td>
-            </tr>
-          </tbody>
-        </table>
+        <form name="reportForm">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Telugu</th>
+                <th>Hindi</th>
+                <th>English</th>
+                <th>Math</th>
+                <th>Science</th>
+                <th>Social</th>
+                <th>Save</th>
+                <th>View Report</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentData.map((item, index) => (
+                <ViewMarks item={item} />
+              ))}
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
   );

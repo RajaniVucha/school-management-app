@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SchoolContext from "./SchoolContext";
 
-const AddMarks = (props) => {
+const EditMarks = (props) => {
   const { studentId } = useParams();
+  //console.log(studentId);
+  const [newReport, setNewReport] = useState({});
   const { getStudentById, studentData } = useContext(SchoolContext);
   const [reports, setReports] = useState({
     telugu: "",
@@ -19,38 +21,79 @@ const AddMarks = (props) => {
   const navigate = useNavigate();
   const { setError } = useContext(SchoolContext);
 
-  //get students by grade
-  getStudentById(studentId);
+  useEffect(() => {
+    //get students by grade
+    getStudentById(studentId);
+    //get students by grade
+    const getReportByStudent = async (studentId) => {
+      // console.log(reports);
+      //console.log(`http://localhost:3000/reports/?id=${studentId}`);
+      try {
+        const response = await fetch(
+          `http://localhost:3000/reports/?id=${studentId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        //console.log(data[0]);
+
+        if (data[0] === undefined) {
+          Object.keys(reports).forEach((key) => (reports[key] = "NA"));
+        } else setReports(data[0]);
+      } catch (error) {
+        console.error("Error fetching student data:", error);
+      }
+    };
+    getReportByStudent(studentId);
+  });
   const handleChange = (e) => {
-    //alert(e.target.value);
+    alert(e.target.value);
     const { name, value } = e.target;
-    setReports({
-      ...reports,
+    setNewReport({
+      ...newReport,
       [name]: value,
       id: studentId,
       studentName: studentData[0]?.name,
       grade: studentData[0]?.grade,
     });
-    //console.log(reports);
+    console.log(newReport);
   };
   //console.log(studentData);
-  const handleSubmit = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
-    console.log("hello");
+
+    console.log(newReport);
     try {
-      const response = await fetch("http://localhost:3000/reports", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reports),
-      });
+      const response = await fetch(
+        `http://localhost:3000/reports/${studentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newReport),
+        }
+      );
 
       if (response.ok) {
-        // Handle a successful response, e.g., display a success message
-        console.log("Data sent successfully");
-        setError("Marks added successfully");
+        if (response !== null) {
+          console.log("Could not find document");
+          setError("Could not find document");
+        } else {
+          // Handle a successful response, e.g., display a success message
+          console.log("Data updated successfully");
+          setError("Marks updated successfully");
+        }
+        // setEditPage("list");
       } else {
         // Handle errors, e.g., display an error message
         console.error("Error sending data");
@@ -66,7 +109,7 @@ const AddMarks = (props) => {
   };
   return (
     <div className="student-form">
-      <h2>Add Student</h2>
+      <h2>Edit Student</h2>
       <form name="marksForm">
         <div>
           <label htmlFor="studentName">Student Name:</label>
@@ -74,7 +117,7 @@ const AddMarks = (props) => {
             type="text"
             id="studentName"
             name="studentName"
-            value={studentData[0]?.name}
+            defaultValue={studentData[0]?.name}
             disabled={true}
             className="input-field"
           />
@@ -86,7 +129,7 @@ const AddMarks = (props) => {
             type="text"
             id="grade"
             name="grade"
-            value={studentData[0]?.grade}
+            defaultValue={studentData[0]?.grade}
             disabled={true}
             className="input-field"
           />
@@ -97,7 +140,7 @@ const AddMarks = (props) => {
             type="text"
             id="telugu"
             name="telugu"
-            value={reports.telugu}
+            defaultValue={reports.telugu}
             onChange={handleChange}
             className="input-field"
           />
@@ -108,7 +151,7 @@ const AddMarks = (props) => {
             type="text"
             id="hindi"
             name="hindi"
-            value={reports.hindi}
+            defaultValue={reports.hindi}
             onChange={handleChange}
             className="input-field"
           />
@@ -119,7 +162,7 @@ const AddMarks = (props) => {
             type="text"
             id="english"
             name="english"
-            value={reports.english}
+            defaultValue={reports.english}
             onChange={handleChange}
             className="input-field"
           />
@@ -130,7 +173,7 @@ const AddMarks = (props) => {
             type="text"
             id="math"
             name="math"
-            value={reports.math}
+            defaultValue={reports.math}
             onChange={handleChange}
             className="input-field"
           />
@@ -141,7 +184,7 @@ const AddMarks = (props) => {
             type="text"
             id="science"
             name="science"
-            value={reports.science}
+            defaultValue={reports.science}
             onChange={handleChange}
             className="input-field"
           />
@@ -152,17 +195,17 @@ const AddMarks = (props) => {
             type="address"
             id="social"
             name="social"
-            value={reports.social}
+            defaultValue={reports.social}
             onChange={handleChange}
             className="input-field"
           />
         </div>
-        <button type="submit" className="submit-button" onClick={handleSubmit}>
-          Add
+        <button type="submit" className="submit-button" onClick={handleEdit}>
+          Edit
         </button>
       </form>
     </div>
   );
 };
 
-export default AddMarks;
+export default EditMarks;

@@ -40,6 +40,12 @@ header {
   text-align: center;
   padding: 5px;
 }
+.error-msg {
+  font-size: 18px;
+  color: #365381;
+  text-align: center;
+  padding: 5px;
+}
 .student-container {
   width: 80%;
   height: auto;
@@ -108,7 +114,9 @@ tr:hover {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-
+.input-field {
+  width: 50%;
+}
 .student-form button {
   width: 100%;
   padding: 10px;
@@ -118,7 +126,15 @@ tr:hover {
   border-radius: 3px;
   cursor: pointer;
 }
-
+.report-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #365381;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
 .student-form button:hover {
   background-color: #0056b3;
 }
@@ -126,6 +142,7 @@ tr:hover {
 .select-box {
   width: auto;
   display: flex;
+  padding-left: 200px;
 }
 select {
   padding: 10px;

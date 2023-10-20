@@ -7,6 +7,9 @@ const studentController = require("../controllers/studentController");
 
 // Define routes for students
 router.get("/", studentController.getStudents);
+router.put("/:_id", studentController.updateStudent);
+router.delete("/:_id", studentController.deleteStudent);
+
 router.post("/", studentController.createStudent);
 // Add routes for updating and deleting students
 

@@ -1,22 +1,38 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import SchoolContext from "./SchoolContext";
 
-const AddStudent = () => {
-  const { student, setStudent, setAddPage } = useContext(SchoolContext);
+const EditTeacher = (props) => {
+  const { teacherId } = useParams();
+  //console.log(teacherId);
+  const [newTeacher, setNewTeacher] = useState({});
+  const { getTeacherById, teacher, setTeacher } = useContext(SchoolContext);
+  //console.log(teacher);
+  const navigate = useNavigate();
 
+  const { setError } = useContext(SchoolContext);
+
+  useEffect(() => {
+    //get Teachers by grade
+    getTeacherById(teacherId);
+    //setTeacher(teacherData);
+    //get teachers by grade
+  });
   const handleChange = (e) => {
+    // alert(e.target.value);
     const { name, value } = e.target;
-    setStudent({ ...student, [name]: value });
+    setTeacher({
+      ...newTeacher,
+      [name]: value,
+    });
+    //console.log(teacher);
   };
   const validateForm = () => {
-    var name = document.forms["studentForm"]["name"].value;
-    var fatherName = document.forms["studentForm"]["fatherName"].value;
-    var motherName = document.forms["studentForm"]["motherName"].value;
-    var phone = document.forms["studentForm"]["phone"].value;
-    var grade = document.forms["studentForm"]["grade"].value;
-
-    var email = document.forms["studentForm"]["email"].value;
-    var address = document.forms["studentForm"]["address"].value;
+    var name = document.forms["teacherForm"]["name"].value;
+    var fatherName = document.forms["teacherForm"]["fatherName"].value;
+    var phone = document.forms["teacherForm"]["phone"].value;
+    var email = document.forms["teacherForm"]["email"].value;
+    var address = document.forms["teacherForm"]["address"].value;
 
     // Name validation (only alphabetic characters and spaces allowed)
     var namePattern = /^[A-Za-z\s]+$/;
@@ -30,12 +46,7 @@ const AddStudent = () => {
       );
       return false;
     }
-    if (!motherName.match(namePattern)) {
-      alert(
-        "Invalid Mother name. Please use only alphabetic characters and spaces."
-      );
-      return false;
-    }
+
     // Phone number validation (simple format XXX-XXX-XXXX)
     var phonePattern = /^\d{3}-\d{3}-\d{4}$/;
     if (!phone.match(phonePattern)) {
@@ -43,12 +54,6 @@ const AddStudent = () => {
       return false;
     }
 
-    // grade number validation (simple format XXX-XXX-XXXX)
-    var gradePattern = /^\d{1}$/;
-    if (!grade.match(gradePattern)) {
-      alert("Invalid grade");
-      return false;
-    }
     // Email validation (basic format checking)
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.match(emailPattern)) {
@@ -65,45 +70,57 @@ const AddStudent = () => {
     // All validations passed
     return true;
   };
-  const handleSubmit = (e) => {
+
+  //console.log(teacherData);
+  const handleEdit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Add code to handle form submission (e.g., sending data to the server)
+      try {
+        const response = await fetch(
+          `http://localhost:3000/teachers/${teacherId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(teacher),
+          }
+        );
 
-      console.log(student);
-      // Make a POST request to your API endpoint
-      fetch("http://localhost:3000/students", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(student),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the API response here
-          console.log(data);
-          setAddPage("list");
-        })
-        .catch((error) => {
-          // Handle errors here
-          console.error("Error:", error);
-        });
-      console.log("Form submitted:", student);
+        if (response.ok) {
+          if (response === null) {
+            console.log("Could not find document");
+            setError("Could not find document");
+          } else {
+            // Handle a successful response, e.g., display a success message
+            console.log("Data updated successfully");
+            setError("Teacher updated successfully");
+          }
+          // setEditPage("list");
+        } else {
+          // Handle errors, e.g., display an error message
+          console.error("Error sending data");
+          setError("Error sending data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setError(error);
+      }
+      navigate("/teachers");
     }
   };
 
   return (
     <div className="student-form">
-      <h2>Add Student</h2>
-      <form name="studentForm">
+      <h2>Edit Teacher</h2>
+      <form name="teacherForm">
         <div>
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
             name="name"
-            value={student.name}
+            defaultValue={teacher[0]?.name}
             onChange={handleChange}
             className="input-field"
           />
@@ -114,29 +131,19 @@ const AddStudent = () => {
             type="text"
             id="fatherName"
             name="fatherName"
-            value={student.fatherName}
+            defaultValue={teacher[0]?.fatherName}
             onChange={handleChange}
             className="input-field"
           />
         </div>
-        <div>
-          <label htmlFor="motherName">Mother Name:</label>
-          <input
-            type="text"
-            id="motherName"
-            name="motherName"
-            value={student.motherName}
-            onChange={handleChange}
-            className="input-field"
-          />
-        </div>
+
         <div>
           <label htmlFor="phone">Phone:</label>
           <input
             type="phone"
             id="phone"
             name="phone"
-            value={student.phone}
+            defaultValue={teacher[0]?.phone}
             onChange={handleChange}
             className="input-field"
           />
@@ -147,7 +154,7 @@ const AddStudent = () => {
             type="email"
             id="email"
             name="email"
-            value={student.email}
+            defaultValue={teacher[0]?.email}
             onChange={handleChange}
             className="input-field"
           />
@@ -158,39 +165,29 @@ const AddStudent = () => {
             type="date"
             id="dateOfBirth"
             name="dateOfBirth"
-            value={student.dateOfBirth}
+            defaultValue={teacher[0]?.dateOfBirth}
             onChange={handleChange}
             className="input-field"
           />
         </div>
-        <div>
-          <label htmlFor="grade">Grade:</label>
-          <input
-            type="text"
-            id="grade"
-            name="grade"
-            value={student.grade}
-            onChange={handleChange}
-            className="input-field"
-          />
-        </div>
+
         <div>
           <label htmlFor="address">Address:</label>
           <input
             type="address"
             id="address"
             name="address"
-            value={student.address}
+            defaultValue={teacher[0]?.address}
             onChange={handleChange}
             className="input-field"
           />
         </div>
-        <button type="submit" className="submit-button" onClick={handleSubmit}>
-          Add Student
+        <button type="submit" className="submit-button" onClick={handleEdit}>
+          Edit Teacher
         </button>
       </form>
     </div>
   );
 };
 
-export default AddStudent;
+export default EditTeacher;

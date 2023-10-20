@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import SchoolContext from "./SchoolContext";
+
 const AddTeacher = () => {
-  const [teacher, setTeacher] = useState({
-    name: "",
-    fatherName: "",
-    phone: "",
-    email: "",
-    dateOfBirth: "",
-    address: "",
-  });
+  const { teacher, setTeacher, setAddPage } = useContext(SchoolContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,6 +67,7 @@ const AddTeacher = () => {
         if (response.ok) {
           // Handle a successful response, e.g., display a success message
           console.log("Data sent successfully");
+          setAddPage("list");
         } else {
           // Handle errors, e.g., display an error message
           console.error("Error sending data");

@@ -15,10 +15,16 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 // Import routes
 const studentRoutes = require("./routes/studentRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
+const reportRoutes = require("./routes/reportRoutes");
+const loginRoutes = require("./routes/loginRoutes");
+const registerRoutes = require("./routes/registerRoutes");
 
 // Mount student and teacher routes
 app.use("/students", studentRoutes);
 app.use("/teachers", teacherRoutes);
+app.use("/reports", reportRoutes);
+app.use("/login", loginRoutes);
+app.use("/register", registerRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello node");

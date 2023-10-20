@@ -6,11 +6,11 @@ const Student = require("../models/studentSchema");
 // Create a function to get a list of all students
 exports.getStudents = async (req, res) => {
   try {
-    const { grade } = req.query;
-    var query = { grade: grade };
-    const students = await Student.find(query).exec();
+    //console.log(req.query);
+
+    const students = await Student.find(req.query).exec();
     res.json(students);
-    //console.log(grade);
+    //console.log(students);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -31,4 +31,35 @@ exports.createStudent = async (req, res) => {
   }
 };
 
+// Create a function to create a new student
+exports.updateStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(req.params);
+    const updatedData = req.body;
+    console.log(updatedData);
+
+    const student = await Student.findOneAndUpdate(req.params, updatedData);
+    res.json(student);
+    console.log(student);
+  } catch (error) {
+    console.log(error, "Internal server error");
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 // Create functions for updating and deleting students as needed
+exports.deleteStudent = async (req, res) => {
+  try {
+    console.log("student");
+    const { _id } = req.params;
+    var query = { _id: _id };
+    console.log(_id);
+
+    const student = await Student.deleteOne(query);
+    res.json(student);
+  } catch (error) {
+    console.log(error, "Internal server error");
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
