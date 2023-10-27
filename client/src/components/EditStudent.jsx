@@ -8,15 +8,15 @@ const EditStudent = (props) => {
   const [newStudent, setNewStudent] = useState({});
   const { getStudentById, studentData } = useContext(SchoolContext);
   const [student, setStudent] = useState({
-    name: studentData[0]?.name,
-    fatherName: studentData[0]?.fatherName,
-    motherName: studentData[0]?.motherName,
-    phone: studentData[0]?.phone,
-    email: studentData[0]?.email,
-    address: studentData[0]?.address,
+    name: "",
+    fatherName: "",
+    motherName: "",
+    phone: "",
+    email: "",
+    address: "",
 
-    dateOfBirth: studentData[0]?.dateOfBirth,
-    grade: studentData[0]?.grade,
+    dateOfBirth: "",
+    grade: "",
   });
   const navigate = useNavigate();
   const { setError } = useContext(SchoolContext);
@@ -24,9 +24,11 @@ const EditStudent = (props) => {
   useEffect(() => {
     //get students by grade
     getStudentById(studentId);
-    // console.log(studentData);
+    setStudent(studentData[0]);
+
     //get students by grade
-  });
+  }, [studentId, studentData, getStudentById]);
+  //console.log(student);
   const handleChange = (e) => {
     // alert(e.target.value);
     const { name, value } = e.target;
@@ -53,7 +55,7 @@ const EditStudent = (props) => {
           body: JSON.stringify(student),
         }
       );
-
+      console.log(response);
       if (response.ok) {
         if (response === null) {
           console.log("Could not find document");

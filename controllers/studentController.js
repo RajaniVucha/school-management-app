@@ -6,11 +6,11 @@ const Student = require("../models/studentSchema");
 // Create a function to get a list of all students
 exports.getStudents = async (req, res) => {
   try {
-    //console.log(req.query);
+    console.log(req.query);
 
     const students = await Student.find(req.query).exec();
     res.json(students);
-    //console.log(students);
+    console.log(students);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -19,7 +19,7 @@ exports.getStudents = async (req, res) => {
 // Create a function to create a new student
 exports.createStudent = async (req, res) => {
   try {
-    //console.log(req.body);
+    console.log(req.body);
     const newStudent = new Student(req.body);
 
     console.log(newStudent);

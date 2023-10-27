@@ -6,8 +6,15 @@ const EditTeacher = (props) => {
   const { teacherId } = useParams();
   //console.log(teacherId);
   const [newTeacher, setNewTeacher] = useState({});
-  const { getTeacherById, teacher, setTeacher } = useContext(SchoolContext);
-  //console.log(teacher);
+  const { getTeacherById, teacherData } = useContext(SchoolContext);
+  const [teacher, setTeacher] = useState({
+    name: "",
+    fatherName: "",
+    phone: "",
+    email: "",
+    dateOfBirth: "",
+    address: "",
+  });
   const navigate = useNavigate();
 
   const { setError } = useContext(SchoolContext);
@@ -15,9 +22,12 @@ const EditTeacher = (props) => {
   useEffect(() => {
     //get Teachers by grade
     getTeacherById(teacherId);
-    //setTeacher(teacherData);
+    console.log(teacherData);
+    setTeacher(teacherData[0]);
+    console.log(teacher);
     //get teachers by grade
-  });
+  }, [teacherId, getTeacherById, setTeacher, teacherData]);
+
   const handleChange = (e) => {
     // alert(e.target.value);
     const { name, value } = e.target;
@@ -120,7 +130,7 @@ const EditTeacher = (props) => {
             type="text"
             id="name"
             name="name"
-            defaultValue={teacher[0]?.name}
+            defaultValue={teacher?.name}
             onChange={handleChange}
             className="input-field"
           />
@@ -131,7 +141,7 @@ const EditTeacher = (props) => {
             type="text"
             id="fatherName"
             name="fatherName"
-            defaultValue={teacher[0]?.fatherName}
+            defaultValue={teacher?.fatherName}
             onChange={handleChange}
             className="input-field"
           />
@@ -143,7 +153,7 @@ const EditTeacher = (props) => {
             type="phone"
             id="phone"
             name="phone"
-            defaultValue={teacher[0]?.phone}
+            defaultValue={teacher?.phone}
             onChange={handleChange}
             className="input-field"
           />
@@ -154,7 +164,7 @@ const EditTeacher = (props) => {
             type="email"
             id="email"
             name="email"
-            defaultValue={teacher[0]?.email}
+            defaultValue={teacher?.email}
             onChange={handleChange}
             className="input-field"
           />
@@ -165,7 +175,7 @@ const EditTeacher = (props) => {
             type="date"
             id="dateOfBirth"
             name="dateOfBirth"
-            defaultValue={teacher[0]?.dateOfBirth}
+            defaultValue={teacher?.dateOfBirth}
             onChange={handleChange}
             className="input-field"
           />
@@ -177,7 +187,7 @@ const EditTeacher = (props) => {
             type="address"
             id="address"
             name="address"
-            defaultValue={teacher[0]?.address}
+            defaultValue={teacher?.address}
             onChange={handleChange}
             className="input-field"
           />

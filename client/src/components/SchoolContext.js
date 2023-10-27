@@ -1,11 +1,9 @@
 import { createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const SchoolContext = createContext();
 
 export const SchoolProvider = ({ children }) => {
   const [studentData, setStudentData] = useState([]);
-  const [student, setStudent] = useState([]);
   const [grade, setGrade] = useState(1);
   const [addPage, setAddPage] = useState("");
   const [teacherData, setTeacherData] = useState([]);
@@ -19,14 +17,7 @@ export const SchoolProvider = ({ children }) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
-  const [teacher, setTeacher] = useState({
-    name: "",
-    fatherName: "",
-    phone: "",
-    email: "",
-    dateOfBirth: "",
-    address: "",
-  });
+
   const [error, setError] = useState("");
   const validatePassword = (password) => {
     // Define the password criteria
@@ -215,7 +206,7 @@ export const SchoolProvider = ({ children }) => {
 
       const data = await response.json();
       // console.log(data); // Log the data from the response
-      setTeacher(data);
+      setTeacherData(data);
     } catch (error) {
       console.error("Error fetching student data:", error);
     }
@@ -238,8 +229,6 @@ export const SchoolProvider = ({ children }) => {
       value={{
         studentData,
         setStudentData,
-        student,
-        setStudent,
         handleSelect,
         grade,
         setGrade,
@@ -250,8 +239,6 @@ export const SchoolProvider = ({ children }) => {
         teacherData,
         setTeacherData,
         fetchTeachersData,
-        teacher,
-        setTeacher,
         getStudentById,
         error,
         setError,

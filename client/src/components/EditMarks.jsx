@@ -15,8 +15,8 @@ const EditMarks = (props) => {
     science: "",
     social: "",
     id: "",
-    studentName: studentData[0]?.name,
-    grade: studentData[0]?.grade,
+    studentName: "",
+    grade: "",
   });
   const navigate = useNavigate();
   const { setError } = useContext(SchoolContext);
@@ -56,14 +56,12 @@ const EditMarks = (props) => {
     getReportByStudent(studentId);
   });
   const handleChange = (e) => {
-    alert(e.target.value);
+    //alert(e.target.value);
     const { name, value } = e.target;
     setNewReport({
       ...newReport,
       [name]: value,
       id: studentId,
-      studentName: studentData[0]?.name,
-      grade: studentData[0]?.grade,
     });
     console.log(newReport);
   };
@@ -83,9 +81,10 @@ const EditMarks = (props) => {
           body: JSON.stringify(newReport),
         }
       );
+      console.log(response);
 
       if (response.ok) {
-        if (response !== null) {
+        if (response === null) {
           console.log("Could not find document");
           setError("Could not find document");
         } else {
@@ -117,7 +116,7 @@ const EditMarks = (props) => {
             type="text"
             id="studentName"
             name="studentName"
-            defaultValue={studentData[0]?.name}
+            defaultValue={reports?.studentName}
             disabled={true}
             className="input-field"
           />
@@ -129,7 +128,7 @@ const EditMarks = (props) => {
             type="text"
             id="grade"
             name="grade"
-            defaultValue={studentData[0]?.grade}
+            defaultValue={reports?.grade}
             disabled={true}
             className="input-field"
           />

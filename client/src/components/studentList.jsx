@@ -13,7 +13,9 @@ const StudentList = (props) => {
     isLoggedIn,
     error,
   } = useContext(SchoolContext);
+
   const navigate = useNavigate();
+  
   useEffect(() => {
     if (isLoggedIn) navigate("/students");
     else navigate("/");
