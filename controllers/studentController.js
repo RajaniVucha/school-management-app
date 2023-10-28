@@ -6,11 +6,12 @@ const Student = require("../models/studentSchema");
 // Create a function to get a list of all students
 exports.getStudents = async (req, res) => {
   try {
-    console.log(req.query);
+    res.send("get students");
+    /*console.log(req.query);
 
     const students = await Student.find(req.query).exec();
     res.json(students);
-    console.log(students);
+    console.log(students);*/
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
