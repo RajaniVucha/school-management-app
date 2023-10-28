@@ -56,7 +56,7 @@ const AddTeacher = () => {
     if (validateForm()) {
       // Add code to handle form submission (e.g., sending data to the server)
       try {
-        const response = await fetch("http://localhost:3000/teachers", {
+        const response = await fetch("https://schoolcool-two.vercel.app/teachers", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
