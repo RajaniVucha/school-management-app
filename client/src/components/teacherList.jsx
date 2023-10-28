@@ -23,7 +23,7 @@ const TeacherList = () => {
   const handleDelete = async (_id) => {
     console.log(_id);
     try {
-      const response = await fetch(`http://localhost:3000/teachers/${_id}`, {
+      const response = await fetch(`https://schoolcool-two.vercel.app/teachers/${_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
