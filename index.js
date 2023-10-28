@@ -38,10 +38,13 @@ app.listen(port, () => {
 const mongoose = require("mongoose");
 
 // Connect to the MongoDB database
-mongoose.connect("mongodb://localhost:27017/school-management", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://rajanivucha:rajani.vucha@123@cluster0.gkco9qo.mongodb.net/school-management",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Check for successful database connection
 const db = mongoose.connection;
