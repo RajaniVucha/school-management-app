@@ -30,7 +30,7 @@ const EditMarks = (props) => {
       //console.log(`http://localhost:3000/reports/?id=${studentId}`);
       try {
         const response = await fetch(
-          `http://localhost:3000/reports/?id=${studentId}`,
+          `https://schoolcool-two.vercel.app//reports/?id=${studentId}`,
           {
             method: "GET",
             headers: {
