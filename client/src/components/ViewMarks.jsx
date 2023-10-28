@@ -25,7 +25,7 @@ const ViewMarks = (props) => {
       //console.log(`http://localhost:3000/reports/?id=${id}`);
       try {
         const response = await fetch(
-          `http://localhost:3000/reports/?id=${id}`,
+          `https://schoolcool-two.vercel.app/reports/?id=${id}`,
           {
             method: "GET",
             headers: {
@@ -58,7 +58,7 @@ const ViewMarks = (props) => {
   const handleDelete = async (_id) => {
     console.log(_id);
     try {
-      const response = await fetch(`http://localhost:3000/reports/${_id}`, {
+      const response = await fetch(`https://schoolcool-two.vercel.app/reports/${_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
