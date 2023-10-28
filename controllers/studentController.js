@@ -8,7 +8,7 @@ exports.getStudents = async (req, res) => {
   try {
     ///console.log(req.query);
 
-    const students = await Student.find(req.query).exec();
+    const students = await Student.find(req.query).limit(5).exec();
 
     res.json(students);
     //console.log(students);
