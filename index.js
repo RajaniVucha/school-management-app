@@ -39,7 +39,7 @@ const mongoose = require("mongoose");
 
 // Connect to the MongoDB database
 mongoose.connect(
-  "mongodb+srv://rajanivucha:rajani.vucha@123@cluster0.gkco9qo.mongodb.net/school-management",
+  "mongodb+srv://rajanivucha:rajani.vucha%40123@cluster0.gkco9qo.mongodb.net/school-management",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
