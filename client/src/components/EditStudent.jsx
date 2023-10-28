@@ -32,18 +32,18 @@ const EditStudent = (props) => {
   const handleChange = (e) => {
     // alert(e.target.value);
     const { name, value } = e.target;
-    setStudent({
+    setNewStudent({
       ...newStudent,
       [name]: value,
     });
-    console.log(student);
+    console.log(newStudent);
   };
   //console.log(studentData);
   const handleEdit = async (e) => {
     e.preventDefault();
-    // console.log(student);
+    console.log(studentId);
 
-    //// console.log(`http://localhost:3000/students/${studentId}`);
+    console.log(`http://localhost:3000/students/${studentId}`);
     try {
       const response = await fetch(
         `http://localhost:3000/students/${studentId}`,
@@ -52,7 +52,7 @@ const EditStudent = (props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(student),
+          body: JSON.stringify(newStudent),
         }
       );
       console.log(response);

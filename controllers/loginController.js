@@ -33,7 +33,7 @@ exports.getUser = async (req, res) => {
 exports.addUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(username);
+    console.log("hello");
     // Check if the user already exists in your database (you may want to use unique constraints).
     const user = await User.findOne({ username: username }).exec();
     if (user != null) {

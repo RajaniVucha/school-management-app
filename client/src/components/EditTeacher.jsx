@@ -24,18 +24,18 @@ const EditTeacher = (props) => {
     getTeacherById(teacherId);
     console.log(teacherData);
     setTeacher(teacherData[0]);
-    console.log(teacher);
+    //console.log(teacher);
     //get teachers by grade
   }, [teacherId, getTeacherById, setTeacher, teacherData]);
 
   const handleChange = (e) => {
     // alert(e.target.value);
     const { name, value } = e.target;
-    setTeacher({
+    setNewTeacher({
       ...newTeacher,
       [name]: value,
     });
-    //console.log(teacher);
+    console.log(newTeacher);
   };
   const validateForm = () => {
     var name = document.forms["teacherForm"]["name"].value;
@@ -93,7 +93,7 @@ const EditTeacher = (props) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(teacher),
+            body: JSON.stringify(newTeacher),
           }
         );
 

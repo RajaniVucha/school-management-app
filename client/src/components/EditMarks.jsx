@@ -10,7 +10,7 @@ const EditMarks = (props) => {
   const [reports, setReports] = useState({
     telugu: "",
     hindi: "",
-    engish: "",
+    english: "",
     math: "",
     science: "",
     social: "",

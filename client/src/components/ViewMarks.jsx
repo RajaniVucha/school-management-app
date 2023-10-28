@@ -9,7 +9,7 @@ const ViewMarks = (props) => {
     _id: "",
     telugu: "",
     hindi: "",
-    engish: "",
+    english: "",
     math: "",
     science: "",
     social: "",
@@ -41,10 +41,11 @@ const ViewMarks = (props) => {
         }
 
         const data = await response.json();
-        // console.log(data[0]);
+        console.log(data[0]);
 
         if (data[0] === undefined) {
           Object.keys(reports).forEach((key) => (reports[key] = "NA"));
+          console.log(reports);
         } else {
           setReports(data[0]);
         }

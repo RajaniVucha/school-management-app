@@ -95,7 +95,7 @@ export const SchoolProvider = ({ children }) => {
         .then((response) => response.json())
         .then((data) => {
           // Handle the API response here
-          console.log(data.message);
+          // console.log(response);
           if (data.message === "Invalid user") {
             setError("Invalid user");
 
