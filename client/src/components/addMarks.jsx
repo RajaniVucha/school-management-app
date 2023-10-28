@@ -39,7 +39,7 @@ const AddMarks = (props) => {
     e.preventDefault();
     console.log("hello");
     try {
-      const response = await fetch("http://localhost:3000/reports", {
+      const response = await fetch("https://schoolcool-two.vercel.app/reports", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
