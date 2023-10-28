@@ -1,8 +1,8 @@
 // controllers/studentController.js
+const maxDuration = 300;
 
 // Import the Student model
 const Student = require("../models/studentSchema");
-
 // Create a function to get a list of all students
 exports.getStudents = async (req, res) => {
   try {
