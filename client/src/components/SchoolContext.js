@@ -138,7 +138,7 @@ export const SchoolProvider = ({ children }) => {
   const getStudentsByClass = async (grade) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/students/?grade=${grade}`,
+        `https://schoolcool-two.vercel.app/students/?grade=${grade}`,
         {
           method: "GET",
           headers: {
