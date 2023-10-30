@@ -27,7 +27,6 @@ const EditMarks = (props) => {
     //get students by grade
     const getReportByStudent = async (studentId) => {
       // console.log(reports);
-      //console.log(`http://localhost:3000/reports/?id=${studentId}`);
       try {
         const response = await fetch(
           `https://schoolcool-two.vercel.app/reports/?id=${studentId}`,
@@ -72,7 +71,7 @@ const EditMarks = (props) => {
     console.log(newReport);
     try {
       const response = await fetch(
-        `http://localhost:3000/reports/${studentId}`,
+        `https://schoolcool-two.vercel.app/reports/${studentId}`,
         {
           method: "PUT",
           headers: {

@@ -43,7 +43,6 @@ const EditStudent = (props) => {
     e.preventDefault();
     console.log(studentId);
 
-    console.log(`http://localhost:3000/students/${studentId}`);
     try {
       const response = await fetch(
         `https://schoolcool-two.vercel.app/students/${studentId}`,
