@@ -87,7 +87,7 @@ const EditTeacher = (props) => {
     if (validateForm()) {
       try {
         const response = await fetch(
-          `http://localhost:3000/teachers/${teacherId}`,
+          `https://schoolcool-two.vercel.app/teachers/${teacherId}`,
           {
             method: "PUT",
             headers: {

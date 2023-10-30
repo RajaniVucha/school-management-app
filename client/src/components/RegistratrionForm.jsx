@@ -25,7 +25,7 @@ const RegistrationForm = () => {
     if (validateRegistrationForm()) {
       console.log(user);
       // Make a POST request to your API endpoint
-      fetch("http://localhost:3000/register", {
+      fetch("https://schoolcool-two.vercel.app/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
